@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>클린칭 공정 result-data 확인 System</title>
+    <link rel="stylesheet" href="/css/ui.css">
+    <link rel="stylesheet" href="/css/jquery.datetimepicker.min.css">
+    <link rel="stylesheet" href="//cdn.datatables.net/1.11.3/css/jquery.dataTables.min.css" />
+    <link rel="stylesheet" href="//cdn.datatables.net/select/1.3.3/css/select.dataTables.min.css" />
+    <link rel="stylesheet" herf="//cdn.datatables.net/buttons/2.1.0/css/buttons.dataTables.min.css" />
+</head>
+<body>
+    <div id="container">
+        <div id="header" class="item">
+            <h1>Result-data monitoring system for Clinching process</h1>
+            <img id="bosch_logo" src="/images/1280px-Bosch-brand.svg.png" alt="bosch logo">
+        </div>
+        <div id="search">
+            <h2>Information</h2>
+            <form id="my_form" method="post" action="#">
+                <div>
+                    <label for="clinching-type">클린칭 타입:</label>
+                    <select id="clinching-type" name="clinching-type" required>
+                        <option value="BRACKET">브라켓</option>
+                        <option value="HOUSING">하우징</option>
+                    </select>
+                </div>
+                <br>
+                <div>
+                    <label for="operation-result">생산결과:</label>
+                    <select id="operation-result" name="operation-result" required>
+                        <option value="true">양품</option>
+                        <option value="false">불량품</option>
+                    </select>
+                </div>
+                <!--
+                <div>
+                    <label for="monitoring-result">공정점검결과:</label>
+                    <select id="monitoring-result" name="monitoring-result" required>
+                        <option value="OK">이상없음</option>
+                        <option value="NOK">이상발생</option>
+                    </select>
+                </div>
+                -->
+                <br>
+                <div>
+                    <label for="start">시작:</label>
+                    <input type="text" id="start" required autocomplete="off" />
+                </div>
+                <br>
+                <div>
+                    <label for="end">종료:</label>
+                    <input type="text" id="end" required autocomplete="off" />
+                </div>
+                <div id="container-buttons">
+                    <input type="submit" id="button" value="Search DMC list">
+                    <button id="button-for-make-visualize">Make Trend</button>
+                </div>
+            </form>
+        </div>
+        <div id="search-result-list">
+            <h2>DMC list</h2>
+            <table id="dmc-search-list">
+                <thead>
+                    <tr id="first-row">
+                        <th class="attribute">date</th>
+                        <th class="attribute">type</th>
+                        <th class="attribute">DMC</th>
+                        <th class="attribute">clinching-result</th>
+                    </tr>
+                </thead>
+            </table>
+
+<!--            <button id="reference">get-reference</button>-->
+<!--            <button id="visualization">get-visualization</button>-->
+
+        </div>
+        <div id="chart">
+            <h2>Visualization</h2>
+            <canvas id="myChart" width="600" height="600"></canvas>
+        </div>
+        <div id="footer">
+            <h1>Footer info. will be updated</h1>
+        </div>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/dayjs@1.10.7/dayjs.min.js"></script>
+    <script src="/js/jquery-3.2.1.min.js"></script>
+    <script src="/js/jquery.datetimepicker.full.min.js"></script>
+    <script src="//cdn.datatables.net/1.11.3/js/jquery.dataTables.min.js"></script>
+    <script src="//cdn.datatables.net/select/1.3.3/js/dataTables.select.min.js"></script>
+    <script src="//cdn.datatables.net/buttons/2.1.0/js/dataTables.buttons.min.js"></script>
+    <script src="/js/ui.js"></script>
+    <script src="/js/makeChart.js"></script>
+    <script src="/js/form-submission-handler.js"></script>
+
+</body>
+</html>
