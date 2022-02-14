@@ -21,20 +21,7 @@ $(document).ready(function() {
 
     $.get('/api/make-visualize', searchDataForVisual, function(data, status) {
       if(status === 'success') {
-
-        console.log(data);
-
-        const mfd = new Set();
-        const type = data[0].clinchingType;
-
-        for (const item of data) {
-          for (const key in item) {
-            if(key === 'mfd') {
-              mfd.add(item[key])
-            }
-          }
-        }
-        makeChart.draw([...data], [...mfd], type);
+        makeChart.draw(data);
       }
     });
   });

@@ -1,4 +1,6 @@
 $(document).ready(function() {
+    Chart.register('chartjs-plugin-annotation');
+
     const makeChart = window.makeChart || {};
     window.makeChart = makeChart;
 
@@ -18,78 +20,108 @@ $(document).ready(function() {
         "rgb(153, 69, 165)"
     ];
 
-    function draw(datas, mfd, type) {
+    function draw(datas) {
 
-        const datasets = [
-            {
-                label: 'UCL',
-                data:[],
-                borderColor: "rgb(226, 0, 0)",
-                pointStyle: 'line'
-            },
-            {
-                label: 'LCL',
-                data:[],
-                borderColor: "rgb(226, 0, 0)",
-                pointStyle: 'line'
+        datas.sort((a,b) => a.mfd.localeCompare(b.mfd));
 
-            }
-        ];
+        const datasets = [];
+
+        const annotations = { };
+
+        if (datas.length == 0) {
+            return;
+        }
+
+        const type = datas[0].clinchingType;
 
         if(type === 'BRACKET')
         {
-            for (let i = 0; i < mfd.length; i++)
-            {
-                datasets[0].data.push(20200),
-                datasets[1].data.push(11500)
+            annotations.up = {
+                type: 'line',
+                yMin: 20200,
+                yMax: 20200,
+                borderColor: 'rgb(255, 99, 132)',
+                label: {
+                    content: "BRACKET UP LIMIT",
+                    position: 'start',
+                    enabled: true,
+                }
+            }
+            annotations.down = {
+                type: 'line',
+                yMin: 11500,
+                yMax: 11500,
+                borderColor: 'rgb(255, 99, 132)',
+                label: {
+                    content: "BRACKET DOWN LIMIT",
+                    position: 'start',
+                    enabled: true,
+                }
             }
         }
-        else
+        else if (type == 'HOUSING')
         {
-            for (let i = 0; i < mfd.length; i++)
-            {
-                datasets[0].data.push(18100),
-                datasets[1].data.push(11100)
+            annotations.up = {
+                type: 'line',
+                yMin: 18100,
+                yMax: 18100,
+                borderColor: 'rgb(255, 99, 132)',
+                label: {
+                    content: "HOUSING DOWN LIMIT",
+                    position: 'start',
+                    enabled: true,
+                }
             }
+            annotations.down = {
+                type: 'line',
+                yMin: 11100,
+                yMax: 11100,
+                borderColor: 'rgb(255, 99, 132)',
+                label: {
+                    content: "HOUSING DOWN LIMIT",
+                    position: 'start',
+                    enabled: true,
+                }
+            }
+        } else {
+            alert(`${type} type은 그릴 수 없는 그레프 입니다.`);
+            return;
         }
 
         console.log('empty datasets');
-        console.log(datasets); // 초기화를 하였는데 CP에 대한 값이 들어 있는 이유?
+        console.log(JSON.stringify(datasets)); // 초기화를 하였는데 CP에 대한 값이 들어 있는 이유?
 
         const endForceByCp = {};
         let clamping_position;
 
         for (const item of datas) {
-            for (const key in item) {
-                if (key === 'cp') {
-                    clamping_position = item[key];
-                    if (endForceByCp[clamping_position]) {}
-                    else {
-                        endForceByCp[clamping_position] = [];
-                    }
-                }
-                if (key === 'averageEndForceValue') {
-                    endForceByCp[clamping_position].push(item[key])
-                }
+            clamping_position = item['cp'];
+            if (!endForceByCp[clamping_position]) {
+                endForceByCp[clamping_position] = [];
             }
+
+            endForceByCp[clamping_position].push({
+                x: dateFns.format(new Date(item['mfd']), 'YYYY-MM-DD'),
+                y: item['averageEndForceValue']
+            })
         }
 
-            for (const key in endForceByCp) {
-                const label = key;
-                const data = endForceByCp[key];
+        for (const key in endForceByCp) {
+            const label = key;
+            const data = endForceByCp[key];
 
-                datasets.push({
-                    label: label, // cp
-                    data: data, // end_force_values
-                    borderColor: colors[datasets.length]
-                })
-            }
+            datasets.push({
+                label: label, // cp
+                data: data, // end_force_values
+                borderColor: colors[datasets.length]
+            })
+        }
 
-            console.log('fill datasets');
-            console.log(datasets);
+        console.log('fill datasets');
+        console.log(datasets);
 
         const data = {
-            labels: mfd,
+            // labels: mfd,
             datasets: datasets
         };
 
@@ -103,6 +135,12 @@ $(document).ready(function() {
                     y: {
                         suggestedMin: 10000,
                         suggestedMax: 22000
+                    }
+                },
+                plugins: {
+                    autocolors: false,
+                    annotation: {
+                        annotations: annotations
                     }
                 }
             }

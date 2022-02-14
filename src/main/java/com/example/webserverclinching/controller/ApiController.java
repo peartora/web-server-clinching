@@ -1,22 +1,18 @@
 package com.example.webserverclinching.controller;
 
+import com.example.webserverclinching.dto.SearchDataDTO;
 import com.example.webserverclinching.dto.SearchDataForVisual;
 import com.example.webserverclinching.dto.SearchDmcResponseDTO;
 import com.example.webserverclinching.entity.AvgEndForce;
-import com.example.webserverclinching.entity.ClinchingDmc;
 import com.example.webserverclinching.service.AvgEndForceSearch;
 import com.example.webserverclinching.service.CpListSearch;
 import com.example.webserverclinching.service.DmcListSearch;
-import com.example.webserverclinching.dto.SearchDataDTO;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.time.LocalDateTime;
 import java.util.List;
-import java.util.Map;
 import java.util.stream.Collectors;
 
 @RestController
