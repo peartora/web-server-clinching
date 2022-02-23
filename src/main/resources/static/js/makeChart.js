@@ -42,7 +42,7 @@ $(document).ready(function() {
                 yMax: 20200,
                 borderColor: 'rgb(255, 99, 132)',
                 label: {
-                    content: "BRACKET UP LIMIT",
+                    content: "Upper LIMIT",
                     position: 'start',
                     enabled: true,
                 }
@@ -53,7 +53,7 @@ $(document).ready(function() {
                 yMax: 11500,
                 borderColor: 'rgb(255, 99, 132)',
                 label: {
-                    content: "BRACKET DOWN LIMIT",
+                    content: "Lower LIMIT",
                     position: 'start',
                     enabled: true,
                 }
@@ -67,7 +67,7 @@ $(document).ready(function() {
                 yMax: 18100,
                 borderColor: 'rgb(255, 99, 132)',
                 label: {
-                    content: "HOUSING DOWN LIMIT",
+                    content: "Upper LIMIT",
                     position: 'start',
                     enabled: true,
                 }
@@ -78,7 +78,7 @@ $(document).ready(function() {
                 yMax: 11100,
                 borderColor: 'rgb(255, 99, 132)',
                 label: {
-                    content: "HOUSING DOWN LIMIT",
+                    content: "Lower LIMIT",
                     position: 'start',
                     enabled: true,
                 }
