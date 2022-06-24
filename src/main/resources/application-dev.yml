@@ -1,3 +1,6 @@
+server:
+  port: 8999
+
 spring:
   web:
     resources:
@@ -12,4 +15,8 @@ spring:
     properties:
       hibernate:
         format_sql: true
-
+  datasource:
+    url: jdbc:mariadb://10.14.2.8/clinching_process
+    username: lsm
+    password: lsm123
+    driverClassName: org.mariadb.jdbc.Driver
